@@ -83,3 +83,52 @@ TEST(PasswordTest, numbers_and_symbols_only)
     bool actual = my_password.has_mixed_case("123!@#$456");
     ASSERT_FALSE(actual);
 }
+
+TEST(PasswordTest, leading_character_once)
+{
+    Password my_password;
+    int actual = my_password.count_leading_characters("Zebra");
+    ASSERT_EQ(1, actual);
+}
+
+TEST(PasswordTest, repeated_leading_characters)
+{
+    Password my_password;
+    int actual = my_password.count_leading_characters("aaabc");
+    ASSERT_EQ(3, actual);
+}
+
+TEST(PasswordTest, entire_string_same_character)
+{
+    Password my_password;
+    int actual = my_password.count_leading_characters("XXXXX");
+    ASSERT_EQ(5, actual);
+}
+
+TEST(PasswordTest, case_sensitive_leading_characters)
+{
+    Password my_password;
+    int actual = my_password.count_leading_characters("aaAaa");
+    ASSERT_EQ(2, actual);
+}
+
+TEST(PasswordTest, symbol_leading_characters)
+{
+    Password my_password;
+    int actual = my_password.count_leading_characters("!!!abc");
+    ASSERT_EQ(3, actual);
+}
+
+TEST(PasswordTest, empty_string)
+{
+    Password my_password;
+    int actual = my_password.count_leading_characters("");
+    ASSERT_EQ(0, actual);
+}
+
+TEST(PasswordTest, character_after_lowercase_range)
+{
+    Password my_password;
+    bool actual = my_password.has_mixed_case("{");
+    ASSERT_FALSE(actual);
+}
